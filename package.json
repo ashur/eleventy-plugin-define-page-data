@@ -1,6 +1,6 @@
 {
   "name": "@aaashur/eleventy-plugin-define-page-data",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Make any data available to shortcodes using the page data object",
   "main": "index.js",
   "scripts": {
