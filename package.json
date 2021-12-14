@@ -29,9 +29,11 @@
   "homepage": "https://github.com/ashur/eleventy-plugin-define-page-data#readme",
   "devDependencies": {
     "chai": "^4.3.4",
-    "dot-prop": "^6.0.1",
     "eslint": "^8.4.1",
     "mocha": "^9.1.3",
     "onchange": "^7.1.0"
+  },
+  "dependencies": {
+    "dot-prop": "^6.0.1"
   }
 }
