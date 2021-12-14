@@ -43,18 +43,18 @@ For example:
 
 Data added to the `page` object using `definePageData` is namespaced to prevent stomping over existing data properties that are created and used by Eleventy. By default, the `data` namespace is used:
 
-```
+```javascript
 {
-	date: new Date(),
-	inputPath: "./src/foo.njk",
-	fileSlug: "/foo",
-	filePathStem: "/foo",
-	url: "/foo/",
-	outputPath: "dist/foo/index.html",
+    date: new Date(),
+    inputPath: "./current/page/myFile.md",
+    fileSlug: "myFile",
+    filePathStem: "/current/page/myFile",
+    url: "/current/page/myFile/",
+    outputPath: "./_site/current/page/myFile/index.html",
 
-	data: {
-		prefersEmoji: false
-	}
+    data: {
+        prefersEmoji: false
+    }
 }
 ```
 
@@ -68,18 +68,38 @@ To access this data in your shortcode source, use `this.page.data`:
  */
 module.exports = function(text)
 {
-	if( !this.page.data.prefersEmoji )
-	{
-		return text;
-	}
-	else
-	{
-		// ...
-	}
+    if( !this.page.data.prefersEmoji )
+    {
+        return text;
+    }
+    else
+    {
+        // ...
+    }
 }
 ```
 
 > 🎈 **Note** — You must define your shortcode with a traditional `function()` rather than an arrow function in order for Eleventy to [bind page data](https://www.11ty.dev/docs/languages/nunjucks/#access-to-page-data-values) to your shortcode.
+
+The `definePageData` shortcode also supports defining nested properties:
+
+```nunjucks
+{% definePageData "user.preferences.prefersEmoji", false %}
+```
+
+```javascript
+{
+    // ...
+
+    data: {
+        user: {
+            preferences: {
+                prefersEmoji: false
+            }
+        }
+    }
+}
+```
 
 ### Namespace
 
@@ -89,16 +109,12 @@ You can use a custom namespace instead of the default `data`:
 {% definePageData "prefersEmoji", false, "customData" %}
 ```
 
-```
+```javascript
 {
-	date: new Date(),
-	inputPath: "./src/foo.njk",
-	fileSlug: "/foo",
-	filePathStem: "/foo",
-	url: "/foo/",
-	outputPath: "dist/foo/index.html",
-	customData: {
-		prefersEmoji: false
-	}
+    // ...
+
+    customData: {
+        prefersEmoji: false
+    }
 }
 ```
