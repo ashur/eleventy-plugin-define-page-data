@@ -66,7 +66,7 @@ To access this data in your shortcode source, use `this.page.data`:
  * @param {string} text
  * @returns {string}
  */
-module.exports = function(text)
+eleventyConfig.addShortcode( "emojify", function(text)
 {
     if( !this.page.data.prefersEmoji )
     {
@@ -76,12 +76,12 @@ module.exports = function(text)
     {
         // ...
     }
-}
+});
 ```
 
 > 🎈 **Note** — You must define your shortcode with a traditional `function()` rather than an arrow function in order for Eleventy to [bind page data](https://www.11ty.dev/docs/languages/nunjucks/#access-to-page-data-values) to your shortcode.
 
-The `definePageData` shortcode also supports defining nested properties:
+The `definePageData` shortcode also supports defining nested properties using dot notation:
 
 ```nunjucks
 {% definePageData "user.preferences.prefersEmoji", false %}
@@ -103,7 +103,13 @@ The `definePageData` shortcode also supports defining nested properties:
 
 ### Namespace
 
-You can use a custom namespace instead of the default `data`:
+Pass an optional third argument to `definePageData` to specify a custom namespace instead of the default `data`:
+
+```nunjucks
+{% definePageData key, value, namespace %}
+```
+
+For example:
 
 ```nunjucks
 {% definePageData "prefersEmoji", false, "customData" %}
