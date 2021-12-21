@@ -61,4 +61,12 @@ describe( "definePageData", () =>
 		assert.isObject( mockEleventyData.page.data.newObject );
 		assert.equal( mockEleventyData.page.data.newObject.newKey, "newValue" );
 	});
+
+	it( "should return empty string", () =>
+	{
+		let expected = "";
+		let actual = mockDefinePageData( "newKey", "newValue" );
+
+		assert.equal( actual, expected, "Return value" );
+	});
 });
