@@ -4,21 +4,25 @@ const definePageData = require( "../src/define-page-data" );
 
 describe( "definePageData", () =>
 {
-	let mockEleventyData = {
-		page: {
-			date: new Date(),
-			inputPath: "./src/foo.njk",
-			fileSlug: "/foo",
-			filePathStem: "/foo",
-			url: "/foo/",
-			outputPath: "dist/foo/index.html"
-		},
+	let getEleventyData = () =>
+	{
+		return {
+			page: {
+				date: new Date(),
+				inputPath: "./src/foo.njk",
+				fileSlug: "/foo",
+				filePathStem: "/foo",
+				url: "/foo/",
+				outputPath: "dist/foo/index.html"
+			},
+		};
 	};
 
-	let mockDefinePageData = definePageData;
+	let mockDefinePageData, mockEleventyData;
 	beforeEach( () =>
 	{
-		mockDefinePageData = mockDefinePageData.bind( mockEleventyData );
+		mockEleventyData = getEleventyData();
+		mockDefinePageData = definePageData.bind( mockEleventyData );
 	});
 
 	it( "should throw if this.page is not an object", () =>
