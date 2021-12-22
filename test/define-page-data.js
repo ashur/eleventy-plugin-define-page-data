@@ -73,4 +73,28 @@ describe( "definePageData", () =>
 
 		assert.equal( actual, expected, "Return value" );
 	});
+
+	it( "should merge existing object properties", () =>
+	{
+		let originalPrefs = {
+			shape: "circle",
+			size: {
+				height: 1,
+				width: 2,
+			},
+		};
+
+		mockEleventyData.page.data = {
+			prefs: originalPrefs,
+		};
+
+		let newPrefs = {
+			color: "red",
+		};
+
+		mockDefinePageData( "prefs", newPrefs );
+
+		assert.hasAllKeys( mockEleventyData.page.data.prefs, ["color", "shape", "size"] );
+		assert.hasAllKeys( mockEleventyData.page.data.prefs.size, ["height", "width"] );
+	});
 });

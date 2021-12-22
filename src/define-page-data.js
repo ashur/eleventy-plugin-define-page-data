@@ -1,3 +1,4 @@
+const deepmerge = require( "deepmerge" );
 const dotProp = require( "dot-prop" );
 
 /**
@@ -18,7 +19,18 @@ module.exports = function(key, value, namespace="data")
 		this.page[namespace] = {};
 	}
 
-	dotProp.set( this.page[namespace], key, value );
+	let originalValue = dotProp.get( this.page[namespace], key );
+	let newValue = value;
+
+	if( originalValue )
+	{
+		if( typeof originalValue === "object" && typeof value === "object" )
+		{
+			newValue = deepmerge( originalValue, value );
+		}
+	}
+
+	dotProp.set( this.page[namespace], key, newValue );
 
 	// Return empty string to prevent potential rendering of 'undefined' in
 	// invoking template
